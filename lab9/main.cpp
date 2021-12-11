@@ -13,7 +13,7 @@ int main() {
     using namespace std::chrono_literals;
 
     sf::Image icon;
-    icon.loadFromFile(R"(C:\Users\Juliana\CLionProjects\lab9\images\circle.png)");
+    icon.loadFromFile("../images/circle.png");
     sf::RenderWindow window(sf::VideoMode(800, 600), L"Кружочки");
     window.setIcon(720,720, icon.getPixelsPtr());
 
@@ -33,7 +33,7 @@ int main() {
     shape2.setOrigin(w2, l2);
     shape2.setFillColor(sf::Color::White);
     sf::Texture texture;
-    texture.loadFromFile(R"(C:\Users\Juliana\CLionProjects\lab9\images\earth.png)");
+    texture.loadFromFile("..images/earth.png");
     shape2.setTexture(&texture);
     shape2.setTextureRect(sf::IntRect(10, 10, 1600, 1600));
 
