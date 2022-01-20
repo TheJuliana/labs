@@ -26,13 +26,13 @@ namespace fn{
 
      bool Doubl(int x) {
         int num = x;
-         bool arr[10]={false};
+        std::vector<bool> arr(10, false);
          while(num != 0){
              int d = num%10;
              if( arr[d] ){
                  return true;
              }
-             arr[d] = true;
+             arr.push_back(true);
              num /= 10;
          }
          return false;
