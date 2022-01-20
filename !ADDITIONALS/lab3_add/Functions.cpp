@@ -4,12 +4,10 @@
 
 namespace fn {
     void Read(int mas[1000], int& x) {
-        int n = 0;
         std::cout << "Enter N:" << std::endl;
-        std::cin >> n;
-        x = n;
+        std::cin >> x;
         std::cout << "Entered sequence:" << std::endl;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < x; i++) {
             std::cin >> mas[i];
         }
     }
