@@ -32,7 +32,7 @@ int main() {
     }
 
     //проверка времени программы
-    auto begin = std::chrono::steady_clock::now();
+    auto begin = chrono::steady_clock::now();
 
     int val1 = P1/Q1; //цена за одну тонну
     int val2 = P2/Q2;
@@ -68,10 +68,10 @@ int main() {
     }
     cout << sum << endl;
 
-    auto end = std::chrono::steady_clock::now();
-    auto elapsed_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin);
+    auto end = chrono::steady_clock::now();
+    auto elapsed_ms = chrono::duration_cast<chrono::milliseconds>(end - begin);
 
-    std::cout << "Runtime: " << elapsed_ms.count() << " ms\n";
+    cout << "Runtime: " << elapsed_ms.count() << endl;
 
     return 0;
 }
