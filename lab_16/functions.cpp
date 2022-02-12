@@ -10,8 +10,8 @@ namespace fn{
         int l = a-1;
         int r = b+1;
         while(true) {
-            while (set[l]<k) {l++;}
-            while (set[r]>k) {r--;}
+            do {l++;} while (set[l]<k) ;
+            do {r--;} while (set[r]>k) ;
             if (l>=r) {break;}
             std::swap(set[l], set[r]);
         }

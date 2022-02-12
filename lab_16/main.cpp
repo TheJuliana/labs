@@ -16,7 +16,7 @@ int main() {
     std::cout << "Vector before quicksort" << std::endl;
     fn::PrintSet(set1);
     Timer t1;
-    fn::QuickSort(1, set1.size(), set1);
+    fn::QuickSort(0, (set1.size())-1, set1);
     std::cout << "Time elapsed: " << t1.elapsed() << '\n';
     std::cout << "After Quicksort" << std::endl;
     fn::PrintSet(set1);
