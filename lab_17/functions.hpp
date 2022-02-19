@@ -4,8 +4,9 @@
 #include <cstring>
 #include <windows.h>
 #include <math.h>
-const int N = 10;
-const int M = 2;
+#include "Timer.hpp"
+const int N = 1000;
+const int M = 200;
 
 namespace fn {
     //2

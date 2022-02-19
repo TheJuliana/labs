@@ -24,6 +24,8 @@ int main() {
     //массив после сортировки
     fn::PrintReq(users);
 
+    Timer t1;
+    //BINARYSEARCH ---- θ(M*logn)
     for (int i = 0; i < M; i++) {
         std::cout << "Current request: " << request[i] << " ";
         int j = fn::BinarySearch(users, 0, N - 1, request[i]);
@@ -33,7 +35,23 @@ int main() {
             std::cout << "Nothing found" << std::endl;
         };
     }
+    std::cout << "Time elapsed: " << t1.elapsed() << '\n';
 
+    Timer t2;
+    //LOOPSEARCH ---- O(M*N)
+    for (int i = 0; i < M; i++) {
+        for (int j = 0; j<N; j++) {
+            if (users[i][1] == request[i]) {
+                std::cout << "Found!!";
+                break;
+            }
+        }
+    }
+    std::cout << "Time elapsed: " << t2.elapsed() << '\n';
+    //ВЫВОД: На очень маленьком количестве данных проще использовать
+    //цикл, но для больших данных бисекция подходит намного лучше
+
+    //BISECTION
     std::cout << "2.BISECTION:" << fn::Bisection(0, INT_MAX, 0.0001) << std::endl;
     return 0;
 }
