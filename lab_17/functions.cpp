@@ -8,9 +8,9 @@ namespace fn {
     double Bisection(double a, double b, double e) {
         double fa = f(a);
         double x;
-        while (b-a > e) { //достигаем необходимой точности e
+        while (true) { //достигаем необходимой точности e
            x = (a+b)/2;
-           if ((x == a) || (x == b)) {
+           if (abs(x-a)<e || abs(x-b)<e) {
                return x;
            } else if (f(x)*fa>0) {
                a = x;
