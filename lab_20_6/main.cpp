@@ -10,11 +10,11 @@
 int main() {
     std::vector<std::vector<int>> mas;
     fn::CreateMas(mas);
-    fn::PrintMas(mas);
+    //fn::PrintMas(mas);
 
     fn::QuickSort(0, N-1, mas);
-    std::cout << "mas after sort" << std::endl;
-    fn::PrintMas(mas);
+    //std::cout << "After sort" << std::endl;
+    //fn::PrintMas(mas);
     int elem;
     std::cout << "Enter id:" << std::endl;
     std::cin >> elem;
