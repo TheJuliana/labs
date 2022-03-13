@@ -40,7 +40,7 @@ namespace fn{
     }
 
     int Medium(int a, int b) {
-        return ((rand()*rand())%(b-a+1))+a; //32767*32767=1 073 676 289 - необходимое максимально возможное число, так как max n = 1 000 000
+        return ((rand()*rand())%(b-a+1))+a;
     };
 
     void QuickSort(int a, int b, std::vector<std::vector<int>> &mas) {

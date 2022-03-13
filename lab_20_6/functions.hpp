@@ -1,8 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
-const int N = 15;
-const int M = 2;
+const int N = 1000000;
 
 namespace fn{
     void CreateMas(std::vector<std::vector<int>> &mas);
