@@ -57,7 +57,7 @@ namespace bmp {
         BMP(int width, int height);
         void WriteIn(const std::string& filename);
         void WriteOut(const std::string& filename);
-        void PinkFilter();
+        void PinkFilter(); //розовый фильтр
         void Fill(Pixel pixel);
         void Rotate(double angle);
 
