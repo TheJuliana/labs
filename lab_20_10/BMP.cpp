@@ -328,15 +328,16 @@ namespace bmp {
     }
 
     void BMP::Interpolation() {
-        for (int i = 0; i < m_height-1; i++) {
-            for (int j = 0; j < m_width-1; j++) {
-               // if (m_pixels[i][j].b == 0 && m_pixels[i][j].g == 0 && m_pixels[i][j].r == 0) {
-                    if (i != 0 && j !=0 && i != m_height && j != m_width) {
-                        int k = 9;
-                        int l = 9;
+        int width = m_width-1; // берем -1 потому что после поворота оно считает ширину и длину на 1 больше
+        int height = m_height-1;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                    if (i != 0 && j !=0 && i != height && j != width) { // пиксели, расположенные не по краям
+                        int k = 9; // количество заполненных пикселей вокруг + 1
+                        int l = 9; // данный коэфициент берем для каждого цвета
                         int m = 9;
-                        if (m_pixels[i+1][j].b == 0) {k--;};
-                        if (m_pixels[i][j+1].b == 0) {k--;};
+                        if (m_pixels[i+1][j].b == 0) {k--;}; //если ячейка пустая то её не берем в расчет
+                        if (m_pixels[i][j+1].b == 0) {k--;}; //для правильного среднего арифметического
                         if (m_pixels[i+1][j+1].b == 0) {k--;};
                         if (m_pixels[i+1][j-1].b == 0) {k--;};
                         if (m_pixels[i-1][j+1].b == 0) {k--;};
@@ -361,10 +362,11 @@ namespace bmp {
                         if (m_pixels[i-1][j].r == 0) {m--;};
                         if (m_pixels[i][j-1].r == 0) {m--;};
                         if (m_pixels[i-1][j+1].r == 0) {m--;};
+                        // рассчитываем среднее арифметическое соседних ячеек для каждого цвета
                         m_pixels[i][j].b = ((m_pixels[i+1][j].b + m_pixels[i][j+1].b + m_pixels[i+1][j+1].b + m_pixels[i-1][j].b + m_pixels[i][j-1].b + m_pixels[i-1][j-1].b + m_pixels[i-1][j+1].b + m_pixels[i+1][j-1].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i+1][j].g + m_pixels[i][j+1].g + m_pixels[i+1][j+1].g + m_pixels[i-1][j].g + m_pixels[i][j-1].g + m_pixels[i-1][j-1].g + m_pixels[i-1][j+1].g + m_pixels[i+1][j-1].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i+1][j].r + m_pixels[i][j+1].r + m_pixels[i+1][j+1].r + m_pixels[i-1][j].r + m_pixels[i][j-1].r + m_pixels[i-1][j-1].r + m_pixels[i-1][j+1].r + m_pixels[i+1][j-1].r)/m);
-                    } else if (i == 0 && j ==0 ) {
+                    } else if (i == 0 && j ==0 ) { //для ячейки в левом верхнем углу
                         int k = 4;
                         int l = 4;
                         int m = 4;
@@ -383,7 +385,7 @@ namespace bmp {
                         m_pixels[i][j].b = ((m_pixels[i+1][j].b + m_pixels[i][j+1].b + m_pixels[i+1][j+1].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i+1][j].g + m_pixels[i][j+1].g + m_pixels[i+1][j+1].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i+1][j].r + m_pixels[i][j+1].r + m_pixels[i+1][j+1].r)/m);
-                    } else if (i == m_height && j == 0) {
+                    } else if (i == height && j == 0) { // для ячейки в левом нижнем углу
                         int k = 4;
                         int l = 4;
                         int m = 4;
@@ -402,7 +404,7 @@ namespace bmp {
                         m_pixels[i][j].b = ((m_pixels[i-1][j].b + m_pixels[i-1][j+1].b + m_pixels[i][j+1].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i-1][j].g + m_pixels[i-1][j+1].g + m_pixels[i][j+1].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i-1][j].r + m_pixels[i-1][j+1].r + m_pixels[i][j+1].r)/m);
-                    } else if (i == m_height && j != m_width  && j !=0) {
+                    } else if (i == height && j != width  && j !=0) { // если нижний ряд не по краям
                         int k = 6;
                         int l = 6;
                         int m = 6;
@@ -427,7 +429,7 @@ namespace bmp {
                         m_pixels[i][j].b = ((m_pixels[i][j+1].b + m_pixels[i][j-1].b + m_pixels[i-1][j].b + m_pixels[i-1][j+1].b + m_pixels[i-1][j-1].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i][j+1].g + m_pixels[i][j-1].g + m_pixels[i-1][j].g + m_pixels[i-1][j+1].g + m_pixels[i-1][j-1].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i][j+1].r + m_pixels[i][j-1].r + m_pixels[i-1][j].r + m_pixels[i-1][j+1].r + m_pixels[i-1][j-1].r)/m);
-                    } else if (i == m_height && j == m_width) {
+                    } else if (i == height && j == width) { // ячейка в правом нижнем углу
                         int k = 4;
                         int l = 4;
                         int m = 4;
@@ -445,7 +447,7 @@ namespace bmp {
                         m_pixels[i][j].b = ((m_pixels[i-1][j].b + m_pixels[i][j-1].b + m_pixels[i-1][j-1].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i-1][j].g + m_pixels[i][j-1].g + m_pixels[i-1][j-1].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i-1][j].r + m_pixels[i][j-1].r + m_pixels[i-1][j-1].r)/m);
-                    } else if (j == m_width && i != 0 && i != m_height) {
+                    } else if (j == width && i != 0 && i != height) { // крайний правый ряд пикселей кроме угловых
                         int k = 6;
                         int l = 6;
                         int m = 6;
@@ -469,7 +471,7 @@ namespace bmp {
                         m_pixels[i][j].b = ((m_pixels[i-1][j].b + m_pixels[i+1][j].b + m_pixels[i][j-1].b + m_pixels[i+1][j-1].b + m_pixels[i-1][j-1].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i-1][j].g + m_pixels[i+1][j].g + m_pixels[i][j-1].g + m_pixels[i+1][j-1].g + m_pixels[i-1][j-1].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i-1][j].r + m_pixels[i+1][j].r + m_pixels[i][j-1].r + m_pixels[i+1][j-1].r + m_pixels[i-1][j-1].r)/m);
-                    } else if (j == m_width && i == 0) {
+                    } else if (j == width && i == 0) { // верхний правый пиксель
                         int k = 4;
                         int l = 4;
                         int m = 4;
@@ -487,7 +489,7 @@ namespace bmp {
                         m_pixels[i][j].b = ((m_pixels[i][j-1].b + m_pixels[i+1][j-1].b + m_pixels[i+1][j].b)/k);
                         m_pixels[i][j].g = ((m_pixels[i][j-1].g + m_pixels[i+1][j-1].g + m_pixels[i+1][j].g)/l);
                         m_pixels[i][j].r = ((m_pixels[i][j-1].r + m_pixels[i+1][j-1].r + m_pixels[i+1][j].r)/m);
-                    } else if (i == 0 && j != 0 && j != m_width) {
+                    } else if (i == 0 && j != 0 && j != width) { //верхний ряд пикселей кроме угловых
                         int k = 6;
                         int l = 6;
                         int m = 6;
@@ -514,7 +516,6 @@ namespace bmp {
                         m_pixels[i][j].r = ((m_pixels[i][j-1].r + m_pixels[i][j+1].r + m_pixels[i+1][j].r + m_pixels[i+1][j+1].r + m_pixels[i+1][j-1].r)/m);
 
                     }
-                //}
             }
         }
     }
