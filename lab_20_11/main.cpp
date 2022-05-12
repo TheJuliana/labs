@@ -1,0 +1,24 @@
+/*
+Лабораторная работа №11
+«Наследование и полиморфизм»
+
+Дан класс, который умеет генерировать код на разных языках.
+ Предложите рефакторинг кода с учетом того, что количество языков будет расширяться.
+
+*/
+
+
+#include "CodeGenerator.hpp"
+
+int main() {
+    std::string input;
+    std::cin >> input;
+    try {
+        std::string code = generateCode(input);
+        std::cout << code << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Caught: " << e.what() << std::endl;
+        std::cerr << "Type: " << typeid(e).name() << std::endl;
+    }
+    return 0;
+}
