@@ -4,17 +4,18 @@
 #include "C_PLUS_PLUS.hpp"
 #include "PHP.hpp"
 #include <exception>
+#include <memory>
 
 std::string generateCode(std::string& inputLanguage) {
-    Languages *lang;
+    std::unique_ptr<Languages> lang;
     if (inputLanguage == "C++") {
-        lang = new C_PLUS_PLUS();
+        lang = std::make_unique<C_PLUS_PLUS>(C_PLUS_PLUS());
         return lang->someRelatedThing();
     } else if (inputLanguage == "Java") {
-        lang = new Java();
+        lang = std::make_unique<Java>(Java());
         return lang->someRelatedThing();
     } else if (inputLanguage == "PHP") {
-        lang = new PHP();
+        lang = std::make_unique<PHP>(PHP());
         return lang->someRelatedThing();
     } else {
         throw std::logic_error("WRONG");
