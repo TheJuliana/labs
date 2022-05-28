@@ -19,6 +19,7 @@ int main() {
     in.Fill({222,222,222});
 
     std::string st = "HELLO";
+    std::cout << "text to encode: " << st << std::endl;
     for (auto c: st) {
         std::cout << (int)c <<std::endl;
     }
@@ -29,6 +30,6 @@ int main() {
     in.Encording(st);
     std::cout << "------DECORDING-------" << std::endl;
     in.Decording(otc);
-    std::cout << otc << std::endl;
+    std::cout << "recieved text: " << otc << std::endl;
     return 0;
 }

@@ -537,54 +537,53 @@ namespace bmp {
             std::cout << "!!!!" << encodedText.size() << std::endl;
             const int n = encodedText.length();
 
-                for (int i = 0; i < m_height; i++) {
-                    for (int j = 0; j < m_width; j++) {
-                        if (k >= n) {break;}
-                        //for (int k = 0; k <encodedText.size(); k++){
-                        std::cout << "!!!!!!!!!!Current ASCII Symbol - " << (int) encodedText[k] << std::endl;
-                        std::cout << "BITSET of encoded char " << std::bitset<sizeof(encodedText[k]) * CHAR_BIT>(encodedText[k]) << std::endl;
+            for (int i = 0; i < m_height; i++) {
+                for (int j = 0; j < m_width; j++) {
+                    if (k >= n) {break;}
+                    std::cout << "!!!!!!!!!!Current ASCII Symbol - " << (int) encodedText[k] << std::endl;
+                    std::cout << "BITSET of encoded char " << std::bitset<sizeof(encodedText[k]) * CHAR_BIT>(encodedText[k]) << std::endl;
 
-                        //std::cout << "!!" << (int)encodedText[k] << std::endl;
-                        unsigned char mask = 248;//0b11111000 - маска для обнуления последних трех битов цвета
-                        std::cout << "BITSET " << std::bitset<sizeof(mask) * CHAR_BIT>(mask) << std::endl;
-                        unsigned char mask2 = 7;//0b00000111; - макска для получения вставляемых битов символа
+                    //std::cout << "!!" << (int)encodedText[k] << std::endl;
+                    unsigned char mask = 248;//0b11111000 - маска для обнуления последних трех битов цвета
+                    std::cout << "BITSET " << std::bitset<sizeof(mask) * CHAR_BIT>(mask) << std::endl;
+                    unsigned char mask2 = 7;//0b00000111; - макска для получения вставляемых битов символа
 
-                        unsigned char num =  m_pixels[i][j].b;
-                        std::cout << "BITSET " << std::bitset<sizeof(num) * CHAR_BIT>(num) << std::endl;
-                        std::cout << "before blue crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].b) * CHAR_BIT>(m_pixels[i][j].b) << std::endl;
-                        m_pixels[i][j].b = m_pixels[i][j].b & mask; //обнуляем последние три бита в цвете
-                        unsigned char part = ((unsigned char)encodedText[k]) & mask2; //берем последние три бита из байта символа
-                        std::cout << "part bits: " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
-                        m_pixels[i][j].b = m_pixels[i][j].b | part; //вставляем их в последние три бита цвета
-                        std::cout << "after blue crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].b) * CHAR_BIT>(m_pixels[i][j].b) << std::endl;
+                    unsigned char num =  m_pixels[i][j].b;
+                    std::cout << "BITSET " << std::bitset<sizeof(num) * CHAR_BIT>(num) << std::endl;
+                    std::cout << "before blue crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].b) * CHAR_BIT>(m_pixels[i][j].b) << std::endl;
+                    m_pixels[i][j].b = m_pixels[i][j].b & mask; //обнуляем последние три бита в цвете
+                    unsigned char part = ((unsigned char)encodedText[k]) & mask2; //берем последние три бита из байта символа
+                    std::cout << "part bits: " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
+                    m_pixels[i][j].b = m_pixels[i][j].b | part; //вставляем их в последние три бита цвета
+                    std::cout << "after blue crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].b) * CHAR_BIT>(m_pixels[i][j].b) << std::endl;
 
-                        std::cout << "before green crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].g) * CHAR_BIT>(m_pixels[i][j].g) << std::endl;
-                        mask2 = mask2 << 3; //сдвигаем маску чтобы получить центральные три бита символа
-                        part = (unsigned char)encodedText[k] & mask2; //получаем эти три бита
-                        part = part >> 3; //сдвигаем биты в край
-                        m_pixels[i][j].g &= mask; //m_pixels[i][j].g = m_pixels[i][j].g & mask; //обнуляем последние три бита в цвете
-                        std::cout << "part bits: " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
-                        m_pixels[i][j].g |= part; //m_pixels[i][j].g = m_pixels[i][j].g | part; // вставляем биты из символа в последние нулевые биты цвета
-                        std::cout << "after green crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].g) * CHAR_BIT>(m_pixels[i][j].g) << std::endl;
+                    std::cout << "before green crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].g) * CHAR_BIT>(m_pixels[i][j].g) << std::endl;
+                    mask2 = mask2 << 3; //сдвигаем маску чтобы получить центральные три бита символа
+                    part = (unsigned char)encodedText[k] & mask2; //получаем эти три бита
+                    part = part >> 3; //сдвигаем биты в край
+                    m_pixels[i][j].g &= mask; //m_pixels[i][j].g = m_pixels[i][j].g & mask; //обнуляем последние три бита в цвете
+                    std::cout << "part bits: " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
+                    m_pixels[i][j].g |= part; //m_pixels[i][j].g = m_pixels[i][j].g | part; // вставляем биты из символа в последние нулевые биты цвета
+                    std::cout << "after green crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].g) * CHAR_BIT>(m_pixels[i][j].g) << std::endl;
 
-                        std::cout << "before red crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].r) * CHAR_BIT>(m_pixels[i][j].r) << std::endl;
-                        mask2 = mask2 << 3; //еще раз сдвигаем маску чтобы получить первые три бита символа
-                        part = (unsigned char)encodedText[k] & mask2; // получаем эти биты
-                        //part = part >> 3; // сдвигаем их в правый край
-                        part = part >> 6;
-                        m_pixels[i][j].r = m_pixels[i][j].r & mask; //обнуляем последние три бита в цвете
-                        std::cout << "part bits: " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
-                        m_pixels[i][j].r = m_pixels[i][j].r | part;  // вставляем полученные биты из символа в последние нулевые биты цвета
-                        std::cout << "after red crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].r) * CHAR_BIT>(m_pixels[i][j].r) << std::endl;
+                    std::cout << "before red crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].r) * CHAR_BIT>(m_pixels[i][j].r) << std::endl;
+                    mask2 = mask2 << 3; //еще раз сдвигаем маску чтобы получить первые три бита символа
+                    part = (unsigned char)encodedText[k] & mask2; // получаем эти биты
+                    //part = part >> 3; // сдвигаем их в правый край
+                    part = part >> 6;
+                    m_pixels[i][j].r = m_pixels[i][j].r & mask; //обнуляем последние три бита в цвете
+                    std::cout << "part bits: " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
+                    m_pixels[i][j].r = m_pixels[i][j].r | part;  // вставляем полученные биты из символа в последние нулевые биты цвета
+                    std::cout << "after red crypt symbol: " << std::bitset<sizeof(m_pixels[i][j].r) * CHAR_BIT>(m_pixels[i][j].r) << std::endl;
 
 
-                        m_pixels[i][j].encorded = true;
-                        std::cout << "!!!!WARNING k = " << k << std::endl;
+                    m_pixels[i][j].encorded = true;
+                    std::cout << "!!!!WARNING k = " << k << std::endl;
 
-                        k++;
+                    k++;
 
-                    }
                 }
+            }
 
         }
     }
@@ -605,7 +604,7 @@ namespace bmp {
                     unsigned char part = m_pixels[i][j].r & mask; //считываем последние три бита с кодом
                     std::cout << "red BITSET part " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
                     part = part << 6;
-                    codeSymbol = codeSymbol | part; //вставляем их в три последние бита декодируемого символа
+                    codeSymbol = codeSymbol | part; //вставляем их в три первые бита декодируемого символа
 
                     std::cout << "BITSET part " << std::bitset<sizeof(codeSymbol) * CHAR_BIT>(codeSymbol) << std::endl;
                     std::cout << "----" << std::endl;
@@ -623,10 +622,8 @@ namespace bmp {
                     std::cout << "BITSET pixel BLUE " << std::bitset<sizeof(m_pixels[i][j].b) * CHAR_BIT>(m_pixels[i][j].b) << std::endl;
                     part = m_pixels[i][j].b & mask; //считываем последние три бита с кодом
                     std::cout << "blue BITSET part " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
-                    //part = part << 3; //сдвигаем их в первые три бита
                     std::cout << "blue BITSET part <- " << std::bitset<sizeof(part) * CHAR_BIT>(part) << std::endl;
-
-                    codeSymbol = codeSymbol | part; //вставляем их в первые три бита
+                    codeSymbol = codeSymbol | part; //вставляем их в последние три бита
                     std::cout << "BITSET codeSymbol " << std::bitset<sizeof(codeSymbol) * CHAR_BIT>(codeSymbol) << std::endl;
                     std::cout << "----" << std::endl;
 
