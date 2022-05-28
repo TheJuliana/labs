@@ -528,6 +528,7 @@ namespace bmp {
     }
 
     void BMP::Encording(std::string &encodedText) {
+        std::cout << "------ENCORDING-------" << std::endl;
         if (m_size < encodedText.size()*3) { //на один символ требуется 3 байта картинки так как мы шифруем последние три бита каждого байта т.е
                                             //на один символ требуется один пиксель
             std::cout << "too much" << std::endl;
@@ -589,7 +590,7 @@ namespace bmp {
     }
 
     void BMP::Decording(std::string &decodedText) {
-        std::cout << "------------decording----------" << std::endl;
+        std::cout << "------DECORDING-------" << std::endl;
         for (int i = 0; i < m_height; i++) {
             for (int j = 0; j < m_width; j++) {
                 if (m_pixels[i][j].encorded) {

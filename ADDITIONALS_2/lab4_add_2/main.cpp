@@ -26,10 +26,10 @@ int main() {
 
     std::string otc;
 
-    std::cout << "------ENCORDING-------" << std::endl;
+
     in.Encording(st);
-    std::cout << "------DECORDING-------" << std::endl;
     in.Decording(otc);
+
     std::cout << "recieved text: " << otc << std::endl;
     return 0;
 }
